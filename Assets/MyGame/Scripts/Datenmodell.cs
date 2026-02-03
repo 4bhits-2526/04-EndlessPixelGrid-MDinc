@@ -7,6 +7,12 @@ public class Datenmodell : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+                ApplyFifoShift();
+        }
+
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             if (Eingabezeilen[0] == true)
@@ -92,6 +98,31 @@ public class Datenmodell : MonoBehaviour
         }
  
     }
+
+    void ApplyFifoShift()
+    {
+    // 1. Raster nach oben schieben
+        for (int row = 0; row < 9; row++)
+        {
+            for (int col = 0; col < 7; col++)
+            {
+                Raster[row, col] = Raster[row + 1, col];
+            }
+        }
+
+        // 2. Eingabezeile unten einfügen (Zeile 9)
+        for (int col = 0; col < 7; col++)
+        {
+            Raster[9, col] = Eingabezeilen[col];
+        }
+
+        // 3. Eingabezeile zurücksetzen
+        for (int i = 0; i < 7; i++)
+        {
+            Eingabezeilen[i] = false;
+        }
+    }
+
  
     
 }
